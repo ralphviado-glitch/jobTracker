@@ -70,8 +70,6 @@ export default function StatusOverview() {
               <th>Position</th>
               <th>Status</th>
               <th>Applied Date</th>
-              <th>Follow-up Date</th>
-              <th>Notes</th>
             </tr>
           </thead>
           <tbody>
@@ -90,8 +88,6 @@ export default function StatusOverview() {
                     <td>{job.position}</td>
                     <td>{job.status}</td>
                     <td>{new Date(job.appliedAt).toLocaleDateString()}</td>
-                    <td>{job.followUpDate ? new Date(job.followUpDate).toLocaleDateString() : "-"}</td>
-                    <td>{job.notes || "-"}</td>
                   </tr>
                 );
               })
