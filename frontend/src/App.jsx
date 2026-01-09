@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import LoginPage from "./pages/Login.jsx";
+import RegisterPage from "./pages/Register.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import AddJob from "./pages/AddJob.jsx";
+import EditJob from "./pages/EditJob.jsx";
+import StatusOverview from "./pages/StatusOverview.jsx";
 
-function App() {
-  const [count, setCount] = useState(0)
+function AppWrapper() {
+  const token = localStorage.getItem("token");
+  const location = useLocation();
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {/* Only show navbar if token exists */}
+      {token && location.pathname !== "/login" && <Navbar />}
+
+      <Routes>
+        <Route
+          path="/login"
+          element={!token ? <LoginPage /> : <Navigate to="/status-overview" replace />}
+        />
+        <Route
+          path="/register"
+          element={!token ? <RegisterPage /> : <Navigate to="/dashboard" replace />}
+        />
+        <Route
+          path="/dashboard"
+          element={token ? <Dashboard /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/add-job"
+          element={token ? <AddJob /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/edit-job/:id"
+          element={token ? <EditJob /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/status-overview"
+          element={token ? <StatusOverview /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="*"
+          element={<Navigate to={token ? "/dashboard" : "/login"} replace />}
+        />
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default function App() {
+  return (
+    <Router>
+      <AppWrapper />
+    </Router>
+  );
+}
