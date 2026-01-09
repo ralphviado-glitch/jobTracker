@@ -17,8 +17,7 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    
-    "job-tracker-snowy-nine.vercel.app"
+    "https://job-tracker-snowy-nine.vercel.app"
   ],
   credentials: true
 }));
