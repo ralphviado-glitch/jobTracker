@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || "https://jobtracker-a8xn.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const apiRequest = async (endpoint, method = "GET", body) => {
   const token = localStorage.getItem("token");
