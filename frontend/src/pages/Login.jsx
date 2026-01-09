@@ -47,9 +47,15 @@ export default function Login() {
           </button>
         </form>
 
+
         <p className="text-center mt-3 mb-0">
-          Don’t have an account? <a href="/register">Register here</a>
-        </p>
+          Demo Account
+          Email: ralph.viado@gmail.com
+          | Password: Ralph1234!
+          [ Login as Demo ]</p>
+{/*        <p className="text-center mt-3 mb-0">
+          Don’t have an account? <a href="/register">Register here</a> 
+        </p>*/}
       </div>
     </div>
   );
